@@ -33,12 +33,12 @@
 
         $('#btnAdd').click(function()
                     {
-                        $('#taskTable').handsontable('alter', 'insert_row', $('#taskTable').handsontable('countRows'))
+                        $('#taskTable').handsontable('alter', 'insert_row', $('#taskTable').handsontable('countRows'));
                     });
                     
         $('#btnDel').click(function()
                     {
-                        $('#taskTable').handsontable('alter', 'remove_row', $('#taskTable').handsontable('countRows')-1)
+                        $('#taskTable').handsontable('alter', 'remove_row', $('#taskTable').handsontable('countRows')-1);
                     });       
         
         $('#solveJohnson').click(function()
@@ -88,7 +88,15 @@
                             for (var i=0 ; i < numberOfTasks ; i++)
                             {
                                 if (quantityOfMachines === 3)
-                                    taskTableData[i] = [Math.floor((Math.random()*10)+1), Math.floor((Math.random()*10)+1), Math.floor((Math.random()*10)+1)];
+                                {
+                                    //Uwzglęgnienie bottle-neck - losowanie tylko prawidłowych czasów
+                                    var timeOnM1 = Math.floor((Math.random()*10)+1);
+                                    var timeOnM3 = Math.floor((Math.random()*10)+1);
+                                    var ceilling = Math.min(timeOnM1, timeOnM3)-1; 
+                                    var timeOnM2 = Math.floor((Math.random()*ceilling)+1);
+                                    taskTableData[i] = [timeOnM1, timeOnM2, timeOnM3];
+                                }
+                                    
                                 if (quantityOfMachines === 2)
                                     taskTableData[i] = [Math.floor((Math.random()*10)+1), Math.floor((Math.random()*10)+1)];
                             }
@@ -145,11 +153,15 @@
             var minOnM3 = Math.min.apply(Math, onM3);
             var maxOnM2 = Math.max.apply(Math, onM2);
 
-            if (!(minOnM1 >= maxOnM2))
+            if(!(minOnM1 >= maxOnM2 || minOnM3 >= maxOnM2))
+            {
+                if (!(minOnM1 >= maxOnM2))
                 return 1;
             
-            if (!(minOnM3 >= maxOnM2))
+                if (!(minOnM3 >= maxOnM2))
                 return 3;
+            }
+            
 
             return 0;
         }
