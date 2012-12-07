@@ -1,0 +1,21 @@
+<?php
+
+date_default_timezone_set('UTC');
+setlocale(LC_ALL, 'en_US');
+
+?>
+<?php echo $this->headLink(
+            //array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico')
+                        )
+                        ->prependStylesheet($this->basePath() . '../css/jquery.handsontable.full.css')
+                        ->prependStylesheet($this->basePath() . '../css/bootstrap-responsive.min')
+                        ->prependStylesheet($this->basePath() . '../css/bootstrap.css')
+                        ->prependStylesheet($this->basePath() . '../css/style.css')
+                        ->prependStylesheet($this->basePath() . '../css/gantti.css') 
+                        ->prependStylesheet($this->basePath() . '../js/jquery.min.js')
+                        ->prependStylesheet($this->basePath() . '../js/bootstrap.js')
+                        ->prependStylesheet($this->basePath() . '../js/validation.js')
+                        ->prependStylesheet($this->basePath() . '../js/jquery.handsontable.full.js')?>
+
+<?php echo $this->content; ?>
+
