@@ -12,6 +12,7 @@ class Task
     public $Deadline;   //czas ostatecznego terminu wykonania
     public $Arrival;    //czas przybycia/gotowości zadania
     public $Ended;      //bool
+    public $Delay;
     
     public function __construct($duration, $arrival = null, $deadline = null) 
     {
@@ -19,6 +20,7 @@ class Task
         $this->End   = array();
         $this->Duration = $duration;
         $this->Number = ++Task::$quantity;
+        $this->Delay = 0;
         
         $this->Arrival = $arrival;
         $this->Deadline = $deadline;

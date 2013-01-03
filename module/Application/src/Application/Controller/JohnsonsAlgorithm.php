@@ -102,7 +102,7 @@ class JohnsonsAlgorithm
                 $d1 = $task->Duration[0] + $task->Duration[1];
                 $d2 = $task->Duration[1] + $task->Duration[2];
 
-                //pomocnicze zadanie które sprowadzone do dwóch maszyn
+                //pomocnicze zadanie sprowadzone do dwóch maszyn
                 $toCompareTask          = new Task(array($d1, $d2));
                 $toCompareTask->Number  = $task->Number;
             }
@@ -132,7 +132,8 @@ class JohnsonsAlgorithm
         //złączenie poszeregowanych list
         $sorted = array_merge($taskList1,$taskList2);
 
-        //
+        //jeżeli do szeregowania użyto pomocniczego zadania
+        //należy zwrócić uszeregowaną listę niezmodyfikowanych zadań
         if ($isThirdMachine)
         {
             foreach($sorted as $sortedTask)

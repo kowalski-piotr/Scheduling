@@ -13,18 +13,23 @@ class LiuAlgorithm
      * Implementacja algorytmu Liu,
      * kryterium uszeregowania Lmax
      * 
+     * 
      */
     public static function solve($data)
     {    
         $currentTick     = 0;
         $result          = array();
         $tasksEnded      = false;
-        $machineSchedule = array();
-        $gap             = array();
+        $lmax            = "";
         
         $findMinDeadline = function($task1, $task2)
         {
             return $task1->Deadline > $task2->Deadline;
+        };
+        
+        $findLmax = function($task1, $task2)
+        {
+            return $task1->Delay < $task2->Delay;
         };
         
         do
@@ -48,33 +53,40 @@ class LiuAlgorithm
                 $currentTask          = $availableTask[0];
                 $currentTask->Start[] = $currentTick;
                 $currentTask->End[]   = ++$currentTick; 
-
+                  
                 if (--$currentTask->Duration == 0)
                     $currentTask->Ended = true;
-                
-                //lista zawierająca czasy przestojów między zadaniami
-                $gap[] = array_sum($machineSchedule);
-                unset($machineSchedule);
-                $machineSchedule[] = 0;
             } 
-            else 
-            {
-                $currentTick++;
-                $machineSchedule[] = 1;
-            }
+            else $currentTick++;
+
             
             //jeżeli wykonano wszystkie zadania 
             //zakończono algorytm
             foreach($data as $task)
             {
-                if($task->Ended) $task->MergeTicks();
-                else continue 2;
+                if($task->Ended) 
+                    $task->MergeTicks();
+                else 
+                    continue 2;
             }
             $tasksEnded = true; 
         }
         while (!$tasksEnded);
         
-        $result['lmax']      = max($gap);
+        //wyszukiwanie Lmax
+        foreach($data as $task)
+        {
+            $delay = $task->Deadline-end($task->End) ;
+            if($delay < 0)
+                $task->Delay = -$delay;
+        }
+        
+        $lmaxTaskList = $data;
+        usort($lmaxTaskList, $findLmax);
+        $lmax .= "T" . $lmaxTaskList[0]->Number . 
+                 " - Delay : " . $lmaxTaskList[0]->Delay;
+        
+        $result['lmax']      = $lmax;
         $result['tasks']     = $data;
         $result['totalTime'] = $currentTick;
         

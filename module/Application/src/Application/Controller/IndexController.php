@@ -99,7 +99,7 @@ class IndexController extends AbstractActionController
             
             foreach($solvedTasks['tasks'] as $task)
             {
-                $color      = '#' . dechex(rand(0,10000000));
+                $color      = '#' . dechex(rand(0,10000000));                
                 $taskNumber = $task->Number;
                 $order     .= 'T'.$taskNumber.' ';
 
@@ -117,7 +117,6 @@ class IndexController extends AbstractActionController
             }
             
             $gantti = new GanttiChart(array(
-                'title'      => 'Schedule',
                 'totalTime'  => $ticks,
                 ),$input);
 
