@@ -11,6 +11,7 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Application\View\Helper\AbsoluteUrl;
 
 class Module
 {
@@ -34,6 +35,19 @@ class Module
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
+            ),
+        );
+    }
+    
+    public function getViewHelperConfig()
+    {
+        return array(
+            'factories' => array(
+                // the array key here is the name you will call the view helper by in your view scripts
+                'absoluteUrl' => function($sm) {
+                    $locator = $sm->getServiceLocator(); // $sm is the view helper manager, so we need to fetch the main service manager
+                    return new AbsoluteUrl($locator->get('Request'));
+                },
             ),
         );
     }

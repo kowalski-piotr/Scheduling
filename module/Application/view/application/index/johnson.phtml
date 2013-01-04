@@ -20,6 +20,12 @@
 <script>
     $(document).ready(function()
     {
+        $.url = function(url) 
+        {
+            var test =  $('base').attr('href')+url;
+            return test;
+        };
+
         var taskTableData = new Array(new Array());
         var quantityOfMachines = 2;
         
@@ -72,7 +78,7 @@
                             }
                         }
 
-                        $.post("/home/solveJohnson", {tableData : taskTableData, machines : quantityOfMachines}, function(data)
+                        $.post($.url('solveJohnson'), {tableData : taskTableData, machines : quantityOfMachines}, function(data)
                         { 
                             $('#gant').html(data.gantti);
                             $('#totalTime').html(data.totalTime);
@@ -167,6 +173,7 @@
         }
     });
 </script>
+<base href="<?php echo $this->absoluteUrl(); ?>" />
 </head>
 
 <body style="background: #FFFFFF">

@@ -20,6 +20,11 @@
 <script>
     $(document).ready(function()
     {
+        $.url = function(url) 
+        {
+            return $('base').attr('href')+url;
+        };
+        
         var taskTableData = new Array(new Array());
         
         $('#taskTable').handsontable({
@@ -51,7 +56,7 @@
                             return false;
                         }
                         
-                        $.post("/home/solveLiu", {tableData : taskTableData}, function(data)
+                        $.post($.url('solveLiu'), {tableData : taskTableData}, function(data)
                         { 
                             $('#gant').html(data.gantti);
                             $('#totalTime').html(data.totalTime);
@@ -90,6 +95,7 @@
         }
     });
 </script>
+<base href="<?php echo $this->absoluteUrl(); ?>" />
 </head>
 
 <body style="background: #FFFFFF">
