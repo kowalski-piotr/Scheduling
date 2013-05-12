@@ -1,7 +1,6 @@
 <?php
 
-namespace Application\Controller;
-use Application\Model\Task;
+namespace Application\Model;
 
 /**
  * Johnsons Algorithm

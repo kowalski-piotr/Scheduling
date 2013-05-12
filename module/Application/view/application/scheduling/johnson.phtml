@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/jquery.handsontable.full.js"></script>
+<script src="../js/johnson.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/jquery.handsontable.full.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/style.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/gantti.css" media="screen" />
+</head>
+
+<body style="background: #FFFFFF">
+    <div id="gant" class="row" style="background: #002b36">
+        <?php echo $this->gantti ?>
+    </div>
+
+    <div class="container" style="margin-top: 10px;">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand">Algorithm</a>
+        <ul class="nav">
+          <li class="active">
+              <a href="<?php echo $this->url('johnson'); ?>">Johnson</a>
+          </li>
+          <li>
+              <a href="<?php echo $this->url('liu');?>">Liu</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+        <div class="row">
+            <div class="span2 offset1">
+                <button class="btn btn-large btn-block btn-primary" id="solveJohnson"> Solve </button>
+            </div>
+            <div class="span4">
+                <p><b>Total time: <span id="totalTime"></span></b></p>
+                <p><b>Order : <span id="order"></span></b></p>
+            </div>
+            <div class="span4 offset1">
+
+                <div id="taskTable"><strong>Tasks</strong></div>
+                <button class="btn" id="btnAdd"> + </button>
+                <button class="btn" id="btnDel"> - </button>
+                <button class="btn" id="rand"> random </button>
+                <button class="btn" id="switch">M3</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="modal" class="modal hide fade in" style="display: none; ">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">&times;</a>
+            <h3>Invalid values</h3>
+        </div>
+        <div class="modal-body">
+            <h4 id="warning"></h4>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn btn-danger" data-dismiss="modal">OK</a>
+        </div>
+    </div>
+</body>
+
+</html>
